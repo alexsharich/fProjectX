@@ -1,6 +1,6 @@
 import React from "react";
 import {useDispatch,useSelector} from 'react-redux'
-import {useNavigate} from 'react-router-dom'
+import {Navigate} from 'react-router-dom'
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Paper from "@mui/material/Paper";
@@ -22,8 +22,20 @@ const {register, handleSubmit, setError, formState:{errors, isValid}} =useForm({
   mode: 'onChange'
 })
 
-const onSubmit = (values)=>{
-dispatch(fetchAuth(values))
+const onSubmit = async (values)=>{
+const data = await dispatch(fetchAuth(values))
+
+if(!data.payload){
+  return alert('Authorization failed ...')
+}
+
+if('token' in data.payload){
+  window.localStorage.setItem('token',data.payload.token)
+}
+}
+
+if(isAuth){
+  return <Navigate to='/'/>
 }
 
   return (
@@ -38,17 +50,17 @@ dispatch(fetchAuth(values))
         error= {Boolean(errors.email?.message)}
         helperText={errors.email?.message}
         type='email'
-        {...register('email',{required:'Email is requirded ...'})}
+        {...register('email',{required:'Email is required ...'})}
         fullWidth
       />
       <TextField className={styles.field}
        label="Password"
-       error= {Boolean(errors.email?.message)}
+       error= {Boolean(errors.password?.message)}
        helperText={errors.password?.message}
        type='password'
-       {...register('password',{required:'Password is requirded ...'})}
+       {...register('password',{required:'Password is required ...'})}
         fullWidth />
-      <Button type='submit' size="large" variant="contained" fullWidth>
+      <Button disabled={!isValid} type='submit' size="large" variant="contained" fullWidth>
         Войти
       </Button>
       </form>

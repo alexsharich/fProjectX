@@ -1,6 +1,6 @@
 import React from 'react';
 import Button from '@mui/material/Button';
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 
 import styles from './Header.module.scss';
@@ -12,7 +12,7 @@ export const Header = () => {
   const dispatch = useDispatch()
 
   const onClickLogout = () => {
-    if(window.confirm('Are you sure want to log ? ')){
+    if (window.confirm('Are you sure want to log ? ')) {
       dispatch(logout())
       window.localStorage.removeItem('token')
     }

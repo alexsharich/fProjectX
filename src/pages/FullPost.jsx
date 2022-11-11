@@ -1,5 +1,5 @@
 import React from "react";
-import {useParams} from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 
 import { Post } from "../components/Post";
 import { Index } from "../components/AddComment";
@@ -8,25 +8,25 @@ import axios from "../axios";
 import ReactMarkdown from "react-markdown";
 
 export const FullPost = () => {
-  const [data,setData] = React.useState()
-  const [isLoading,setLoading] = React.useState(true)
-  const {id} = useParams()
+  const [data, setData] = React.useState()
+  const [isLoading, setLoading] = React.useState(true)
+  const { id } = useParams()
 
-  React.useEffect(()=>{
+  React.useEffect(() => {
     axios
-    .get(`/posts/${id}`)
-    .then((res)=>{
-      setData(res.data)
-      setLoading(false)
-    }).catch((err)=>{
-      console.warn(err)
-      alert('Mistake ...')
-    })
-  },[])
+      .get(`/posts/${id}`)
+      .then((res) => {
+        setData(res.data)
+        setLoading(false)
+      }).catch((err) => {
+        console.warn(err)
+        alert('Mistake ...')
+      })
+  }, [])
 
-if(isLoading){
-  return <Post isLoading={isLoading} isFullPost/>
-}
+  if (isLoading) {
+    return <Post isLoading={isLoading} isFullPost />
+  }
 
   return (
     <>
@@ -41,7 +41,7 @@ if(isLoading){
         tags={data.tags}
         isFullPost
       >
-       <ReactMarkdown children={data.text} />
+        <ReactMarkdown children={data.text} />
       </Post>
       <CommentsBlock
         items={[

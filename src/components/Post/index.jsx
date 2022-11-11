@@ -5,8 +5,8 @@ import DeleteIcon from '@mui/icons-material/Clear';
 import EditIcon from '@mui/icons-material/Edit';
 import EyeIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 import CommentIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
-import {Link} from 'react-router-dom'
-import {useDispatch} from 'react-redux'
+import { Link } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 
 import styles from './Post.module.scss';
 import { UserInfo } from '../UserInfo';
@@ -27,16 +27,16 @@ export const Post = ({
   isLoading,
   isEditable,
 }) => {
-const dispatch = useDispatch()
+  const dispatch = useDispatch()
 
   if (isLoading) {
     return <PostSkeleton />;
   }
 
   const onClickRemove = () => {
-    if(window.confirm('Are you sure ?')){
+    if (window.confirm('Are you sure ?')) {
       dispatch(fetchRemovePost(id))
-    } 
+    }
   };
 
   return (
